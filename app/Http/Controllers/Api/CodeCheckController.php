@@ -35,7 +35,7 @@ class CodeCheckController extends BaseController
 			'email_code'=> null
 		 ]);
 
-		return response()->json(['user'=>$user,'message'=>'successfully password reset']);
+		return response()->json(['success'=>true,'user'=>$user,'message'=>'successfully password reset']);
 
         }
         else
