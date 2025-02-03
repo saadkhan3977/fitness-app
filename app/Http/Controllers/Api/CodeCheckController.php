@@ -59,7 +59,7 @@ class CodeCheckController extends BaseController
 			
 			if($user != null)
 			{
-				return response()->json(['message'=>'Code or Email Verified']);
+				return response()->json(['success' =>true,'message'=>'Code or Email Verified']);
 
 
 			}else{
