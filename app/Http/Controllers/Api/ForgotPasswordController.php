@@ -29,7 +29,7 @@ class ForgotPasswordController extends BaseController
 			$data['email'] = $request->email;
 			$user->update(['email_code'=>$data['code'] ]);
 		    Mail::to($user->email)->send(new SendCodeResetPassword($user->email_code));	
-			$success = [$data];
+			$success = $data;
 	        return $this->sendResponse($success, trans('passwords.sent'));
 		}else{
 		 return $this->sendError('User does not exitsts');
