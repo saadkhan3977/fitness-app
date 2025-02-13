@@ -102,88 +102,116 @@ class UserController extends BaseController
 	}
 
     public function profile(Request $request)
-    {
-		// return Auth::user();
-        try{
-			$olduser = User::where('id',Auth::user()->id)->first();
-			$validator = Validator::make($request->all(),[
+	{
+		try {
+			$olduser = User::where('id', Auth::user()->id)->first();
+
+			$validator = Validator::make($request->all(), [
 				'height' => 'nullable|numeric',
-                'weight' => 'nullable|numeric',
-                // 'gender' => 'nullable|string|in:male,female,other',
-                'goal' => 'nullable|string',
-                'additional_goal' => 'nullable|string',
-                'food_preferences' => 'nullable|string',
-                'hear_about' => 'nullable|string',
-                'variety' => 'nullable|string',
-                'meal_in_day' => 'nullable|array',
-                'allow_reminders' => 'nullable|boolean',
+				'weight' => 'nullable|numeric',
+				'goal' => 'nullable|string',
+				'additional_goal' => 'nullable|string',
+				'food_preferences' => 'nullable|string',
+				'hear_about' => 'nullable|string',
+				'variety' => 'nullable|string',
+				'meal_in_day' => 'nullable|array',
+				'allow_reminders' => 'nullable|boolean',
+
+				// New fields
+				'current_weight' => 'nullable|numeric',
+				'dob' => 'nullable|date',
+				'active_diet' => 'nullable|string',
+				'activity_level' => 'nullable|string',
+				'calories' => 'nullable|integer',
+				'vegan' => 'nullable|boolean',
+				'vegetarian' => 'nullable|boolean',
+				'pascetarian' => 'nullable|boolean',
+				'allergic_to_nuts' => 'nullable|boolean',
+				'allergic_to_fish' => 'nullable|boolean',
+				'allergic_to_shellfish' => 'nullable|boolean',
+				'allergic_to_egg' => 'nullable|boolean',
+				'allergic_to_milk' => 'nullable|boolean',
+				'lactose_intolerant' => 'nullable|boolean',
+				'gluten_intolerant' => 'nullable|boolean',
+				'whete_intolerant' => 'nullable|boolean',
+				'water_tracker' => 'nullable|boolean',
+				'fasting' => 'nullable|boolean',
+				'vegetable_tracker' => 'nullable|boolean',
+				'seafood_tracker' => 'nullable|boolean',
 			]);
-			if($validator->fails())
-			{
+
+			if ($validator->fails()) {
 				return $this->sendError($validator->errors()->first());
 			}
-			
-			$userdetail = UserDetail::where('user_id',Auth::id())->first();
 
+			$userdetail = UserDetail::where('user_id', Auth::id())->first();
 			$input = $request->all();
 			$input['user_id'] = Auth::id();
-			if($userdetail)
-			{
-				// $userdetail->update($input);
 
+			if ($userdetail) {
 				$userdetail->update([
 					'height' => $request->height,
 					'weight' => $request->weight,
-					'gender' => $request->gender,
 					'goal' => $request->goal,
 					'additional_goal' => $request->additional_goal,
 					'food_preferences' => $request->food_preferences,
 					'hear_about' => $request->hear_about,
 					'variety' => $request->variety,
-					'meal_in_day' => $request->meal_in_day, // Automatically converts array to JSON
+					'meal_in_day' => $request->meal_in_day,
 					'allow_reminders' => $request->allow_reminders,
 				]);
-			}
-			else
-			{
+			} else {
 				UserDetail::create([
 					'user_id' => Auth::id(),
 					'height' => $request->height,
 					'weight' => $request->weight,
-					'gender' => $request->gender,
 					'goal' => $request->goal,
 					'additional_goal' => $request->additional_goal,
 					'food_preferences' => $request->food_preferences,
 					'hear_about' => $request->hear_about,
 					'variety' => $request->variety,
-					'meal_in_day' => $request->meal_in_day, // Automatically converts array to JSON
+					'meal_in_day' => $request->meal_in_day,
 					'allow_reminders' => $request->allow_reminders,
 				]);
 			}
-			// $olduser->height = $request->height;
-			// $olduser->weight = $request->weight;
-			// $olduser->gender = $request->gender;
-			// $olduser->phone = $request->phone;
-			// $olduser->zip = $request->zip;
-			// $olduser->state = $request->state;
-			// $olduser->city = $request->city;
-			// $olduser->state = $request->state;
-			// $olduser->address = $request->address;
-			// $olduser->company_name = $request->company_name;
-			// $olduser->photo = $profile;
-			// $olduser->save();
 
+			// Update user table with new fields
+			$user = User::find(Auth::id());
+			$user->update([
+				'current_weight' => $request->current_weight,
+				'dob' => $request->dob,
+				'active_diet' => $request->active_diet,
+				'activity_level' => $request->activity_level,
+				'calories' => $request->calories,
+				'vegan' => $request->vegan,
+				'vegetarian' => $request->vegetarian,
+				'pascetarian' => $request->pascetarian,
+				'allergic_to_nuts' => $request->allergic_to_nuts,
+				'allergic_to_fish' => $request->allergic_to_fish,
+				'allergic_to_shellfish' => $request->allergic_to_shellfish,
+				'allergic_to_egg' => $request->allergic_to_egg,
+				'allergic_to_milk' => $request->allergic_to_milk,
+				'lactose_intolerant' => $request->lactose_intolerant,
+				'gluten_intolerant' => $request->gluten_intolerant,
+				'whete_intolerant' => $request->whete_intolerant,
+				'water_tracker' => $request->water_tracker,
+				'fasting' => $request->fasting,
+				'vegetable_tracker' => $request->vegetable_tracker,
+				'seafood_tracker' => $request->seafood_tracker,
+			]);
 
 			$user = User::with('user_profile')->find(Auth::user()->id);
 
-			return response()->json(['success'=>true,'message'=>'Profile Updated Successfully','user_info'=>$user]);
-		}
-		catch(\Eception $e)
-		{
+			return response()->json([
+				'success' => true,
+				'message' => 'Profile Updated Successfully',
+				'user_info' => $user
+			]);
+
+		} catch (\Exception $e) {
 			return $this->sendError($e->getMessage());
 		}
-
-    }
+	}
 
 	public function review(Request $request)
 	{
