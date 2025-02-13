@@ -63,7 +63,7 @@ class CodeCheckController extends BaseController
 
 
 			}else{
-			return response()->json(['message'=>'Code is Invalid']);
+			return response()->json(['success' =>false,'message'=>'Code is Invalid']);
 
 
 			}

@@ -31,11 +31,10 @@ class ForgotPasswordController extends BaseController
 		    Mail::to($user->email)->send(new SendCodeResetPassword($user->email_code));	
 			$success = $data;
 	        return $this->sendResponse($success, trans('passwords.sent'));
-		}else{
-		 return $this->sendError('User does not exitsts');
-
+		}	
+		else
+		{
+			return $this->sendError('User does not exitsts');
 		}
-
-
     }
 }

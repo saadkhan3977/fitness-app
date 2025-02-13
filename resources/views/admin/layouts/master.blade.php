@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Qbid | @yield('page-title')</title>
+    <title>Fitness | @yield('page-title')</title>
 
 
   <!-- Google Font: Source Sans Pro -->
@@ -59,7 +59,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('/admin')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Fitness Admin Panel</span>
     </a>
 
     <!-- Sidebar -->
@@ -70,7 +70,7 @@
           <img src="{{asset('/admin')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Admin</a>
         </div>
       </div>
 
@@ -100,49 +100,28 @@
             </a>
 
           </li>
-          <li class="nav-item">
-            <a href="{{route('negotiators.list')}}" class="nav-link @if(Route::current()->getName() =='negotiators.list'  ) active @endif">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Negotiators
-              </p>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a href="{{route('users')}}" class="nav-link @if(Route::current()->getName() =='users'  ) active @endif">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Members
               </p>
             </a>
           </li>
+          
+          
           <li class="nav-item">
-            <a href="{{route('reviews')}}" class="nav-link @if(Route::current()->getName() =='reviews'  ) active @endif">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{route('recipes.index')}}" class="nav-link @if(Route::current()->getName() =='recipes'  ) active @endif">
+              <i class="nav-icon fas fa-receipt"></i>
               <p>
-                Reviews
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('quotes')}}" class="nav-link @if(Route::current()->getName() =='quotes'  ) active @endif">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Quotes
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('bids')}}" class="nav-link @if(Route::current()->getName() =='bids'  ) active @endif">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Bids
+              Recipes
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-circle"></i>
               <p>
               {{ __('Logout') }}
               </p>
@@ -152,62 +131,7 @@
             </form>
 
           </li>
-          <!-- <li class="nav-item">
-            <a href="{{route('transaction')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Transactions
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('orders.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Orders
-              </p>
-            </a>
-          </li>
-			    <li class="nav-item">
-            <a href="{{route('trophy.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Trophy
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('category.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Category
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('brand.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Brand
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('product.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Products
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('shipping.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Shipping
-              </p>
-            </a>
-          </li> -->
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
